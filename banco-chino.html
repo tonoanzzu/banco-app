@@ -51,6 +51,18 @@
 
             _ingresarDinero() {
 
+                let valorasumar = this.shadowRoot.querySelector('#chinaInput').value;
+                if (valorasumar === NaN || valorasumar === '' || valorasumar === null) {
+                    this.dispatchEvent(new CustomEvent('banco-chino-name-error', {
+                        detail: {
+                            error: true,
+                            message: 'Error, Valor no valido',
+                            banco: 'Banco de Chino'
+                        }
+                    }));
+                    return;
+                }
+
                 let sumamontovirtual = parseFloat(this.shadowRoot.querySelector('#chinaInput').value) + this.amount;
 
                 if (sumamontovirtual > 2000) {
@@ -77,6 +89,18 @@
             }
 
             _retirarDinero() {
+
+                let valorarestar = this.shadowRoot.querySelector('#chinaInput').value;
+                if (valorarestar === NaN || valorarestar === '' || valorarestar === null) {
+                    this.dispatchEvent(new CustomEvent('banco-chino-name-error', {
+                        detail: {
+                            error: true,
+                            message: 'Error, Valor no valido',
+                            banco: 'Banco de Chino'
+                        }
+                    }));
+                    return;
+                }
 
                 let restamontovirtual = this.amount - parseFloat(this.shadowRoot.querySelector('#chinaInput').value);
 

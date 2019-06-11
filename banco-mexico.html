@@ -50,6 +50,20 @@
             }
 
             _ingresarDinero() {
+                let valorasumar = this.shadowRoot.querySelector('#mexicoInput').value;
+                if (valorasumar === NaN || valorasumar === '' || valorasumar === null) {
+                    this.dispatchEvent(new CustomEvent('banco-mexico-name-error', {
+                        detail: {
+                            error: true,
+                            message: 'Error, Valor no valido',
+                            banco: 'Banco de Mexico'
+                        }
+                    }));
+                    return;
+                }
+
+
+
                 let sumamontovirtual = parseFloat(this.shadowRoot.querySelector('#mexicoInput').value) + this.amount;
 
                 if (sumamontovirtual > 2000) {
@@ -76,6 +90,18 @@
             }
 
             _retirarDinero() {
+
+                let valorarestar = this.shadowRoot.querySelector('#mexicoInput').value;
+                if (valorarestar === NaN || valorarestar === '' || valorarestar === null) {
+                    this.dispatchEvent(new CustomEvent('banco-mexico-name-error', {
+                        detail: {
+                            error: true,
+                            message: 'Error, Valor no valido',
+                            banco: 'Banco de Mexico'
+                        }
+                    }));
+                    return;
+                }
 
                 let restamontovirtual = this.amount - parseFloat(this.shadowRoot.querySelector('#mexicoInput').value);
 
