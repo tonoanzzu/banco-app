@@ -1,0 +1,111 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../iron-button/iron-button.html">
+<link rel="import" href="../paper-input/paper-input.html">
+
+<link rel="import" href="./banco-mexico.html">
+<link rel="import" href="./banco-chino.html">
+<link rel="import" href="./banco-coreano.html">
+<link rel="import" href="./banco-japones.html">
+
+<dom-module id="banco-app">
+    <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h1>Banco App</h1>
+    <button  on-click="toggle" btn-colapasa-banco="collapseMexico">Banco de Mexico</button>
+    <button  on-click="toggle" btn-colapasa-banco="collapseChino">Banco Chino</button>
+    <button  on-click="toggle" btn-colapasa-banco="collapseCoreano">Banco Coreano</button>
+    <button  on-click="toggle" btn-colapasa-banco="collapseJapones">Banco Japones</button>
+
+    
+      <iron-collapse id="collapseMexico">
+        <banco-mexico  id="bancoMexico" on-banco-mexico-name-success="eventoDesdeElBancoSuccess" on-banco-mexico-name-error="eventoDesdeElBancoError"  ></banco-mexico>
+      </iron-collapse>
+
+      <iron-collapse id="collapseChino">
+        <banco-chino  id="bancoChino" on-banco-chino-name-success="eventoDesdeElBancoSuccess" on-banco-chino-name-error="eventoDesdeElBancoError"  ></banco-chino>
+      </iron-collapse>
+
+      <iron-collapse id="collapseCoreano">
+        <banco-coreano  id="bancoCoreano" on-banco-coreano-name-success="eventoDesdeElBancoSuccess" on-banco-coreano-name-error="eventoDesdeElBancoError"  ></banco-coreano>
+      </iron-collapse>
+
+      <iron-collapse id="collapseJapones">
+        <banco-japones  id="bancoJapones" on-banco-japones-name-success="eventoDesdeElBancoSuccess" on-banco-japones-name-error="eventoDesdeElBancoError"  ></banco-japones>
+      </iron-collapse>
+
+      <h1>Transacciones</h1>
+
+      <!--TODO: validacion de valores validos -->
+
+      <template is="dom-repeat" items="{{transaccionesLog}}">
+                <div>  Operacion: [[index]] </div><div> [[item.banco]],  Mensaje: [[item.message]]  </div>
+    </template>
+
+    <h1>Errores</h1>
+
+    <template is="dom-repeat" items="{{erroresLog}}">
+      <div>  Operacion: [[index]] </div><div>[[item.banco]],  Mensaje: [[item.message]]  </div>
+</template>
+
+    </template>
+
+    <script>
+        /**
+         * `banco-app`
+         * ejercicio de bancos
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class BancoApp extends Polymer.Element {
+            static get is() {
+                return 'banco-app';
+            }
+            static get properties() {
+                return {
+                    transaccionesLog: {
+                        type: Array,
+                        value: () => {
+                            return [];
+                        }
+                    },
+                    erroresLog: {
+                        type: Array,
+                        value: () => {
+                            return [];
+                        }
+                    },
+                    response: {
+                        type: Object
+                    }
+                };
+            }
+
+            toggle(e) {
+
+                let id = e.target.getAttribute('btn-colapasa-banco');
+                this.shadowRoot.querySelector('#' + id).toggle();
+            }
+
+            eventoDesdeElBancoSuccess(e) {
+                this.push('transaccionesLog', e.detail);
+            }
+
+            eventoDesdeElBancoError(e) {
+                this.push('erroresLog', e.detail);
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+            }
+        }
+
+        window.customElements.define(BancoApp.is, BancoApp);
+    </script>
+</dom-module>

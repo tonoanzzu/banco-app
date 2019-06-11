@@ -1,0 +1,112 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-input/paper-input.html">
+
+<dom-module id="banco-coreano">
+    <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <h1>Banco Coreano</h1>
+
+    <paper-input id="coreanoInput" label="Monto" type="number">
+      <div slot="prefix">$</div>
+    </paper-input>
+
+    <paper-button on-tap="_ingresarDinero" toggles raised>Ingresar Dinero</paper-button>
+    <paper-button on-tap="_retirarDinero"  toggles raised>Retirar Dinero</paper-button>
+    
+  </template>
+
+    <script>
+        /**
+         * `banco-coreano`
+         * ejercicio de bancos
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class BancoCoreano extends Polymer.GestureEventListeners(Polymer.Element) {
+            static get is() {
+                return 'banco-coreano';
+            }
+            static get properties() {
+                return {
+                    currency: {
+                        type: String,
+                        value: 'KRW',
+                        readOnly: true,
+                    },
+                    amount: {
+                        type: Number,
+                        value: 0
+                    }
+                };
+            }
+
+            _ingresarDinero() {
+
+                let sumamontovirtual = parseFloat(this.shadowRoot.querySelector('#coreanoInput').value) + this.amount;
+
+                if (sumamontovirtual > 2000) {
+
+                    this.dispatchEvent(new CustomEvent('banco-coreano-name-error', {
+                        detail: {
+                            error: true,
+                            message: 'Error, monto superior al autorizado',
+                            banco: 'Banco de Coreano'
+                        }
+                    }));
+
+                } else {
+
+                    this.amount = sumamontovirtual
+
+                    this.dispatchEvent(new CustomEvent('banco-coreano-name-success', {
+                        detail: {
+                            error: false,
+                            message: 'Operacion exitosa, deposito correcto, actualmente tienes : ' + this.amount + ' ' + this.currency,
+                            banco: 'Banco de Coreano'
+                        }
+                    }));
+                }
+            }
+
+            _retirarDinero() {
+
+                let restamontovirtual = this.amount - parseFloat(this.shadowRoot.querySelector('#coreanoInput').value);
+
+                if (restamontovirtual < 0) {
+
+                    this.dispatchEvent(new CustomEvent('banco-coreano-name-error', {
+                        detail: {
+                            error: true,
+                            message: 'Error, no se puede realizar retiro por fondos insufucientes',
+                            banco: 'Banco de Coreano'
+                        }
+                    }));
+
+                } else {
+
+                    this.amount = restamontovirtual
+
+                    this.dispatchEvent(new CustomEvent('banco-coreano-name-success', {
+                        detail: {
+                            error: true,
+                            message: 'Operacion exitosa, retiro correcto actualmente tienes : ' + this.amount + ' ' + this.currency,
+                            banco: 'Banco de Coreano'
+                        }
+                    }));
+                }
+
+            }
+        }
+
+        window.customElements.define(BancoCoreano.is, BancoCoreano);
+    </script>
+</dom-module>

@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="banco-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `banco-app`
+     * ejercicio de bancos
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class BancoApp extends Polymer.Element {
+      static get is() { return 'banco-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'banco-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(BancoApp.is, BancoApp);
+  </script>
+</dom-module>
