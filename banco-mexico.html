@@ -62,9 +62,7 @@
                     return;
                 }
 
-
-
-                let sumamontovirtual = parseFloat(this.shadowRoot.querySelector('#mexicoInput').value) + this.amount;
+                let sumamontovirtual = parseFloat(valorasumar) + this.amount;
 
                 if (sumamontovirtual > 2000) {
 
@@ -103,7 +101,7 @@
                     return;
                 }
 
-                let restamontovirtual = this.amount - parseFloat(this.shadowRoot.querySelector('#mexicoInput').value);
+                let restamontovirtual = this.amount - parseFloat(valorarestar);
 
                 if (restamontovirtual < 0) {
 

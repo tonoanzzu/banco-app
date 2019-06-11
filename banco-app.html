@@ -21,36 +21,33 @@
     <button  on-click="toggle" btn-colapasa-banco="collapseCoreano">Banco Coreano</button>
     <button  on-click="toggle" btn-colapasa-banco="collapseJapones">Banco Japones</button>
 
-    
-      <iron-collapse id="collapseMexico">
-        <banco-mexico  id="bancoMexico" on-banco-mexico-name-success="eventoDesdeElBancoSuccess" on-banco-mexico-name-error="eventoDesdeElBancoError"  ></banco-mexico>
-      </iron-collapse>
+    <iron-collapse id="collapseMexico">
+    <banco-mexico  id="bancoMexico" on-banco-mexico-name-success="eventoDesdeElBancoSuccess" on-banco-mexico-name-error="eventoDesdeElBancoError"  ></banco-mexico>
+    </iron-collapse>
 
-      <iron-collapse id="collapseChino">
-        <banco-chino  id="bancoChino" on-banco-chino-name-success="eventoDesdeElBancoSuccess" on-banco-chino-name-error="eventoDesdeElBancoError"  ></banco-chino>
-      </iron-collapse>
+    <iron-collapse id="collapseChino">
+    <banco-chino  id="bancoChino" on-banco-chino-name-success="eventoDesdeElBancoSuccess" on-banco-chino-name-error="eventoDesdeElBancoError"  ></banco-chino>
+    </iron-collapse>
 
-      <iron-collapse id="collapseCoreano">
-        <banco-coreano  id="bancoCoreano" on-banco-coreano-name-success="eventoDesdeElBancoSuccess" on-banco-coreano-name-error="eventoDesdeElBancoError"  ></banco-coreano>
-      </iron-collapse>
+    <iron-collapse id="collapseCoreano">
+    <banco-coreano  id="bancoCoreano" on-banco-coreano-name-success="eventoDesdeElBancoSuccess" on-banco-coreano-name-error="eventoDesdeElBancoError"  ></banco-coreano>
+    </iron-collapse>
 
-      <iron-collapse id="collapseJapones">
-        <banco-japones  id="bancoJapones" on-banco-japones-name-success="eventoDesdeElBancoSuccess" on-banco-japones-name-error="eventoDesdeElBancoError"  ></banco-japones>
-      </iron-collapse>
+    <iron-collapse id="collapseJapones">
+    <banco-japones  id="bancoJapones" on-banco-japones-name-success="eventoDesdeElBancoSuccess" on-banco-japones-name-error="eventoDesdeElBancoError"  ></banco-japones>
+    </iron-collapse>
 
-      <h1>Transacciones</h1>
+    <h1>Transacciones</h1>
 
-      <!--TODO: validacion de valores validos -->
-
-      <template is="dom-repeat" items="{{transaccionesLog}}">
-                <div>  Operacion: [[index]] </div><div> [[item.banco]],  Mensaje: [[item.message]]  </div>
+    <template is="dom-repeat" items="{{transaccionesLog}}">
+            <div>  Operacion: [[index]] </div><div> [[item.banco]],  Mensaje: [[item.message]]  </div>
     </template>
 
     <h1>Errores</h1>
 
     <template is="dom-repeat" items="{{erroresLog}}">
       <div>  Operacion: [[index]] </div><div>[[item.banco]],  Mensaje: [[item.message]]  </div>
-</template>
+    </template>
 
     </template>
 
@@ -88,7 +85,6 @@
             }
 
             toggle(e) {
-
                 let id = e.target.getAttribute('btn-colapasa-banco');
                 this.shadowRoot.querySelector('#' + id).toggle();
             }

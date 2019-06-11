@@ -14,7 +14,7 @@
     <h1>Banco Chino</h1>
 
     <paper-input id="chinaInput" label="Monto" type="number">
-      <div slot="prefix">$</div>
+      <div slot="prefix">¥</div>
     </paper-input>
 
     <paper-button on-tap="_ingresarDinero" toggles raised>Ingresar Dinero</paper-button>
@@ -63,7 +63,7 @@
                     return;
                 }
 
-                let sumamontovirtual = parseFloat(this.shadowRoot.querySelector('#chinaInput').value) + this.amount;
+                let sumamontovirtual = parseFloat(valorasumar) + this.amount;
 
                 if (sumamontovirtual > 2000) {
                     this.dispatchEvent(new CustomEvent('banco-chino-name-error', {
@@ -102,7 +102,7 @@
                     return;
                 }
 
-                let restamontovirtual = this.amount - parseFloat(this.shadowRoot.querySelector('#chinaInput').value);
+                let restamontovirtual = this.amount - parseFloat(valorarestar);
 
                 if (restamontovirtual < 0) {
 

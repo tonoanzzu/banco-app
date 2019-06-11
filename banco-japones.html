@@ -14,7 +14,7 @@
     <h1>Banco Japones</h1>
 
     <paper-input id="japonesInput" label="Monto" type="number">
-      <div slot="prefix">$</div>
+      <div slot="prefix">¥</div>
     </paper-input>
 
     <paper-button on-tap="_ingresarDinero" toggles raised>Ingresar Dinero</paper-button>
@@ -63,7 +63,7 @@
                     return;
                 }
 
-                let sumamontovirtual = parseFloat(this.shadowRoot.querySelector('#japonesInput').value) + this.amount;
+                let sumamontovirtual = parseFloat(valorasumar) + this.amount;
 
                 if (sumamontovirtual > 2000) {
 
@@ -102,7 +102,7 @@
                     return;
                 }
 
-                let restamontovirtual = this.amount - parseFloat(this.shadowRoot.querySelector('#japonesInput').value);
+                let restamontovirtual = this.amount - parseFloat(valorarestar);
 
                 if (restamontovirtual < 0) {
 
