@@ -7,46 +7,83 @@
 <link rel="import" href="./banco-chino.html">
 <link rel="import" href="./banco-coreano.html">
 <link rel="import" href="./banco-japones.html">
+<link rel="import" href="./estilo-compartido.html">
 
 <dom-module id="banco-app">
     <template>
-    <style>
+    <style include="modulo-compartido-css">
       :host {
         display: block;
+        background-color: #1b1ba7;
       }
+      paper-button.custom {
+    --paper-button-ink-color: var(--paper-pink-a200);
+    --paper-button-flat-keyboard-focus: {
+      background-color: var(--paper-pink-a200);
+      color: white !important;
+    };
+    --paper-button-raised-keyboard-focus: {
+      background-color: var(--paper-pink-a200) !important;
+      color: white !important;
+    };
+  }
+  paper-button.custom:hover {
+    background-color: var(--paper-indigo-100);
+  }
+  paper-button.pink {
+    color: var(--paper-pink-a200);
+  }
+  paper-button.indigo {
+    background-color: var(--paper-indigo-500);
+    color: white;
+    --paper-button-raised-keyboard-focus: {
+      background-color: var(--paper-pink-a200) !important;
+      color: white !important;
+    };
+  }
+  paper-button.green {
+    background-color: var(--paper-green-500);
+    color: white;
+  }
+  paper-button.green[active] {
+    background-color: var(--paper-red-500);
+  }
+  paper-button.disabled {
+    color: white;
+  }
     </style>
     <h1>Banco App</h1>
-    <button  on-click="toggle" btn-colapasa-banco="collapseMexico">Banco de Mexico</button>
-    <button  on-click="toggle" btn-colapasa-banco="collapseChino">Banco Chino</button>
-    <button  on-click="toggle" btn-colapasa-banco="collapseCoreano">Banco Coreano</button>
-    <button  on-click="toggle" btn-colapasa-banco="collapseJapones">Banco Japones</button>
+    <paper-button toggles raised class="custom green" on-click="toggle" btn-colapasa-banco="collapseMexico">Banco de Mexico</paper-button>
+    <paper-button toggles raised class="custom green" on-click="toggle" btn-colapasa-banco="collapseChino">Banco Chino</paper-button>
+    <paper-button toggles raised class="custom green" on-click="toggle" btn-colapasa-banco="collapseCoreano">Banco Coreano</paper-button>
+    <paper-button toggles raised class="custom green" on-click="toggle" btn-colapasa-banco="collapseJapones">Banco Japones</paper-button>
 
     <iron-collapse id="collapseMexico">
-    <banco-mexico  id="bancoMexico" on-banco-mexico-name-success="eventoDesdeElBancoSuccess" on-banco-mexico-name-error="eventoDesdeElBancoError"  ></banco-mexico>
+      <banco-mexico  id="bancoMexico" on-banco-mexico-name-success="eventoDesdeElBancoSuccess" on-banco-mexico-name-error="eventoDesdeElBancoError"></banco-mexico>
     </iron-collapse>
 
     <iron-collapse id="collapseChino">
-    <banco-chino  id="bancoChino" on-banco-chino-name-success="eventoDesdeElBancoSuccess" on-banco-chino-name-error="eventoDesdeElBancoError"  ></banco-chino>
+      <banco-chino  id="bancoChino" on-banco-chino-name-success="eventoDesdeElBancoSuccess" on-banco-chino-name-error="eventoDesdeElBancoError"></banco-chino>
     </iron-collapse>
 
     <iron-collapse id="collapseCoreano">
-    <banco-coreano  id="bancoCoreano" on-banco-coreano-name-success="eventoDesdeElBancoSuccess" on-banco-coreano-name-error="eventoDesdeElBancoError"  ></banco-coreano>
+      <banco-coreano  id="bancoCoreano" on-banco-coreano-name-success="eventoDesdeElBancoSuccess" on-banco-coreano-name-error="eventoDesdeElBancoError"></banco-coreano>
     </iron-collapse>
 
     <iron-collapse id="collapseJapones">
-    <banco-japones  id="bancoJapones" on-banco-japones-name-success="eventoDesdeElBancoSuccess" on-banco-japones-name-error="eventoDesdeElBancoError"  ></banco-japones>
+      <banco-japones  id="bancoJapones" on-banco-japones-name-success="eventoDesdeElBancoSuccess" on-banco-japones-name-error="eventoDesdeElBancoError"></banco-japones>
     </iron-collapse>
 
     <h1>Transacciones</h1>
 
     <template is="dom-repeat" items="{{transaccionesLog}}">
-            <div>  Operacion: [[index]] </div><div> [[item.banco]],  Mensaje: [[item.message]]  </div>
+      <div class="div-mensaje">  <p> Operacion: [[index]]  </p><p class="p-exitoso"> [[item.banco]],  Mensaje: [[item.message]] </p>  </div>
     </template>
 
     <h1>Errores</h1>
 
     <template is="dom-repeat" items="{{erroresLog}}">
-      <div>  Operacion: [[index]] </div><div>[[item.banco]],  Mensaje: [[item.message]]  </div>
+      <div class="div-mensaje">  <p> Operacion: [[index]]  </p><p class="p-error"> [[item.banco]],  Mensaje: [[item.message]] </p>  </div>
     </template>
 
     </template>

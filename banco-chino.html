@@ -2,23 +2,50 @@
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../iron-image/iron-image.html">
 
 <dom-module id="banco-chino">
     <template>
-    <style>
+    <style include="modulo-compartido-css">
       :host {
         display: block;
+        background-color: rgb(255, 137, 137);
+        margin: 25px;
       }
+      .contenedor-bandera {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      
+    }
+    .bloque-continuo{
+        display: inline-block;
+        margin: 20px;
+    }
+    .contenedor-header{
+        align-content: justify;
+    }
+    .btn-deposito{
+        background-color: rgb(57, 177, 33);
+    }
+    .btn-retiro{
+        background-color: #ff0000;
+    }
+    .input-style{
+        color: aliceblue;
+    }
     </style>
 
-    <h1>Banco Chino</h1>
+    <div class="contenedor-header">
+        <div class="bloque-continuo"><h1>Banco Chino</h1></div><div class="bloque-continuo"><iron-image sizing="contain" class="contenedor-bandera" alt="Chino" src="http://banderasmundo.es/banderas/china.png"></iron-image></div>
+    </div>
 
-    <paper-input id="chinaInput" label="Monto" type="number">
-      <div slot="prefix">¥</div>
+    <paper-input class="input-style" id="chinaInput" label="Monto" type="number" value="{{valInput::input}}">
+      <div slot="prefix">{{currency}}</div>
     </paper-input>
 
-    <paper-button on-tap="_ingresarDinero" toggles raised>Ingresar Dinero</paper-button>
-    <paper-button on-tap="_retirarDinero"  toggles raised>Retirar Dinero</paper-button>
+    <paper-button class="btn-deposito" on-tap="_ingresarDinero" toggles raised>Ingresar Dinero</paper-button>
+    <paper-button class="btn-retiro" on-tap="_retirarDinero"  toggles raised>Retirar Dinero</paper-button>
     
   </template>
 
@@ -39,20 +66,29 @@
                 return {
                     currency: {
                         type: String,
-                        value: 'CNY',
+                        value: '¥',
                         readOnly: true,
                     },
                     amount: {
                         type: Number,
                         value: 0
+                    },
+                    maxAmount: {
+                        type: Number,
+                        value: 2000,
+                        readOnly: true
+                    },
+                    valInput: {
+                        type: Number
+
                     }
                 };
             }
 
             _ingresarDinero() {
 
-                let valorasumar = this.shadowRoot.querySelector('#chinaInput').value;
-                if (valorasumar === NaN || valorasumar === '' || valorasumar === null) {
+                let valorasumar = this.valInput;
+                if (valorasumar === NaN || valorasumar === '' || valorasumar === null || valorasumar === undefined) {
                     this.dispatchEvent(new CustomEvent('banco-chino-name-error', {
                         detail: {
                             error: true,
@@ -65,7 +101,7 @@
 
                 let sumamontovirtual = parseFloat(valorasumar) + this.amount;
 
-                if (sumamontovirtual > 2000) {
+                if (sumamontovirtual > this.maxAmount) {
                     this.dispatchEvent(new CustomEvent('banco-chino-name-error', {
                         detail: {
                             error: true,
@@ -90,8 +126,8 @@
 
             _retirarDinero() {
 
-                let valorarestar = this.shadowRoot.querySelector('#chinaInput').value;
-                if (valorarestar === NaN || valorarestar === '' || valorarestar === null) {
+                let valorarestar = this.valInput;
+                if (valorarestar === NaN || valorarestar === '' || valorarestar === null || valorarestar === undefined) {
                     this.dispatchEvent(new CustomEvent('banco-chino-name-error', {
                         detail: {
                             error: true,
@@ -116,7 +152,7 @@
 
                 } else {
 
-                    this.amount = restamontovirtual
+                    this.amount = restamontovirtual;
 
                     this.dispatchEvent(new CustomEvent('banco-chino-name-success', {
                         detail: {
